@@ -16,6 +16,9 @@ export class FormPersonalDetails extends Component {
         this.props.prevStep();
     }
 
+    onChange = e => {
+        
+    }
 
     render() {
         const { values, handleChange } = this.props;
@@ -26,22 +29,22 @@ export class FormPersonalDetails extends Component {
                      <TextField
                         hintText="Enter Your Occupation"
                         floatingLabelText="Occupation"
-                        onChange={handleChange('occupation')}
-                        dafaultValue={values.occupation}
+                        onChange={this.handleChange}
+                        dafaultValue={values}
                         />
                         <br/>
                         <TextField
                         hintText="Enter Your City"
                         floatingLabelText="City"
-                        onChange={handleChange('city')}
-                        dafaultValue={values.city}
+                        onChange={handleChange}
+                        dafaultValue={values}
                         />
                         <br/>
                         <TextField
                         hintText="Enter Your Bio"
                         floatingLabelText="Bio"
-                        onChange={handleChange('bio')}
-                        dafaultValue={values.bio}
+                        onChange={handleChange}
+                        dafaultValue={values}
                         />
                         <br/>
                         <RaisedButton

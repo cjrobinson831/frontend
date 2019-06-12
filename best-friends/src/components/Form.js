@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import axios from 'axios'
 
 class Form extends React.Component{
     state = {
@@ -14,11 +15,22 @@ class Form extends React.Component{
     change = e => {
         this.setState({
             [e.target.name]: e.target.value
-        })
+    })
     }
 
     onSubmit = () => {
-        console.log(this.state);
+        event.preventDefault();
+
+        const endpoint = 'https://best-friend-reminders.herokuapp.com/';
+
+        axios
+            .post(endpoint, this.state)
+            .then(res => {
+                localStorage.setItem('jwt', res.data.token);
+
+                this.props.history.push('/users');
+            })
+            .catch(error => console.error(error));
     };
 
     render() {
