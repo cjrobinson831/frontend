@@ -1,49 +1,36 @@
 import React, { Component } from 'react';
 import './App.css';
-import UserForm from './components/UserForm';
+import FormPersonalDetails from './components/FormPersonalDetails';
 import Form from './components/Form';
+import { Route, NavLink, withRouter } from 'react-router-dom';
+import FormUserDetails from './components/FormUserDetails';
 
 
 class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      betterFriends: [],
-
-    }
-  }
-
-  componentDidMount() {
-
-    fetch('https://best-friend-reminders.herokuapp.com/')
-    .then(res => res.json())
-    .then(json => { 
-      this.setState({
-        isLoaded: true,
-        items:json,
-      })
-    })
-  }
-
-
   render(){
+    return (
+      <>
+      <header>
+        <nav>
+          <NavLink to="/FormUserDetails">Login</NavLink>
+          <NavLink to="/FormPersonalDetails">Register</NavLink>
+          <NavLink to="/form">Form</NavLink>
+          <button onClick={this.logout}>Logout</button>
+        </nav>
+      </header>
+      <main>
+        <Route path="/FormUserDetails" component={FormUserDetails} />
+        <Route path="/FormPersonalDetails" component={FormPersonalDetails} />
+        <Route path="/form" component={Form} />
+      </main>
+      </>
+    );
+  }
 
-    const { isLoaded, items } = this.state;
+  logout = () => {
+    localStorage.removeItem('jwt')
 
-    if(!isLoaded) {
-      return <div>Loading...</div>
-    }
-
-    else{
-     
-  return (
-    <div className="App">
-      <UserForm />
-      <Form />
-    </div>
-  );
+    this.props.history.push('/login');
+  };
 }
-}
-}
-export default App;
+export default withRouter(App);
