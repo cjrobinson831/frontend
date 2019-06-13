@@ -6,6 +6,7 @@ import Form from './components/Form';
 import FormPersonalDetails from './components/FormPersonalDetails';
 import FormUserDetails from './components/FormUserDetails';
 import Success from './components/Success';
+import Reminders from './components/Reminders'
 import axios from 'axios';
 import {BrowserRouter as Router, Switch} from 'react-router-dom';
 
@@ -25,13 +26,14 @@ class App extends Component {
 
 componentDidMount(){
   axios 
-  .get('https://best-friend-reminders.herokuapp.com/')
+  .get('https://best-friend-reminders.herokuapp.com/api/reminders')
     .then(res => this.setState({betterFriends: res.data}))
     .then(json => {
       this.setState({
         isLoaded:true,
         betterFriends: json,
       })
+      console.log(this.state);
     });
 }
 
@@ -74,11 +76,22 @@ render() {
         
         <Route
         exact
+        path="/Reminders"
+        render={props => (
+          <Reminders
+            {...props} 
+          />
+        )}
+      />
+
+        <Route
+        exact
         path="/Success"
         render={props => (
           <Success
             {...props} 
           />
+          
         )}
       />
       </nav>

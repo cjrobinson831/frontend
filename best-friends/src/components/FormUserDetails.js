@@ -3,15 +3,33 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import axios from 'axios';
 
 
 export class FormUserDetails extends Component {
 
-    continue = e => {
-        this.props.history.push('/FormPersonalDetails')
-        e.preventDefault();
-        
+    handleChange = event => {
+        const { name, value } = event.target;
+        this.setState({ [name]: value});
     }
+
+    continue = e => {
+        e.preventDefault();
+        this.props.history.push('/FormPersonalDetails')
+
+        const endpoint = 'https://best-friend-reminders.herokuapp.com/api/login'
+
+        axios
+            .post(endpoint, this.state)
+            .then(res => {
+                localStorage.setItem('jwt', res.data.token);
+
+                this.props.history.push('/reminders');
+            })
+            .catch(error => console.error(error))
+    };
+
+    
     render() {
         const { values, handleChange } = this.props;
         return (
@@ -57,4 +75,4 @@ const styles = {
     }
 }
 
-export default FormUserDetails
+export default FormUserDetails;

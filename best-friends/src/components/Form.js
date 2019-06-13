@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import axios from 'axios'
+import axios from 'axios';
 
-class Form extends React.Component{
+
+export class Form extends Component {
     state = {
         firstName: '',
         lastName: '',
@@ -13,19 +16,21 @@ class Form extends React.Component{
         errorMessage: null
     }
 
-   
-
     change = e => {
         this.setState({
             [e.target.name]: e.target.value
     })
     }
 
+    continue = e => {
+        e.preventDefault();
+        this.props.history.push('/Reminders')
+    }
+
     onSubmit = event => {
         this.props.history.push('/Success')
-        
 
-        const endpoint = 'https://best-friend-reminders.herokuapp.com/register';
+        const endpoint = 'https://best-friend-reminders.herokuapp.com/login';
 
         axios
             .post(endpoint, this.state)
@@ -37,54 +42,48 @@ class Form extends React.Component{
             .catch(error => console.error(error));
     };
 
+    
     render() {
+        const { values, handleChange } = this.props;
         return (
-            <form>
-                <MuiThemeProvider> 
-                    <input
-                    name="firstName" 
-                    placeholder='First Name' 
-                    value={this.state.firstName} 
-                    onChange={e => this.change(e)}
-                     />
-                    <br/>
-                    <input
-                    name="lastName" 
-                    placeholder='Last Name' 
-                    value={this.state.lastName} 
-                    onChange={e => this.change(e)}
-                     />
-                    <br/>
-                    <input
-                    name="userName" 
-                    placeholder='User Name' 
-                    value={this.state.userName} 
-                    onChange={e => this.change(e)}
-                     />
-                    <br/>
-                     <input 
-                    name="email"
-                    placeholder='Email'
-                    value={this.state.email}
-                    onChange={e => this.change(e)}
-                    />
-                    <br/>
-                     <input
-                    name="password"
-                    type="password"
-                    placeholder='Password' 
-                    value={this.state.password} 
-                    onChange={e => this.change(e)}
-                    />
-                    <br/>
+            <MuiThemeProvider>
+                <React.Fragment>
+                     <AppBar title="Friendly Reminders" />
+                     <TextField
+                        hintText="Name "
+                        floatingLabelText="Name"
+                        onChange={this.handleChange}
+                        dafaultValue={values}
+                        />
+                        <br/>
+                        <TextField
+                        hintText="Email "
+                        floatingLabelText="Email"
+                        onChange={this.handleChange}
+                        dafaultValue={values}
+                        />
+                         <br/>
+                         <TextField
+                        hintText="Friendly Reminder "
+                        floatingLabelText="Friendly Reminder"
+                        onChange={this.handleChange}
+                        dafaultValue={values}
+                        />
+                         <br/>
+                    <RaisedButton
+                        label="Continue"
+                        primary={true}
+                        style={styles.button}
+                        onClick={this.continue}
+                        />
                      <RaisedButton
                         label="Submit"
-                        primary={true}
+                        primary={false}
                         style={styles.button}
                         onClick={() => this.onSubmit()}
                         />
-                </MuiThemeProvider>
-            </form>
+                </React.Fragment>
+            </MuiThemeProvider>
         );
     }
 }
