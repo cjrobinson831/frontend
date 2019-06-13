@@ -72,6 +72,15 @@ render() {
         )}
       />
         
+        <Route
+        exact
+        path="/Success"
+        render={props => (
+          <Success
+            {...props} 
+          />
+        )}
+      />
       </nav>
       </div>
       </Router>

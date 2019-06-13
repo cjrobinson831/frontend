@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-import Form from './Form';
-import RaisedButton from 'material-ui/RaisedButton';
+
 
 
 
@@ -28,12 +27,7 @@ export class Success extends Component {
                      <AppBar title="Success" />
                      <h1>Thank You for Your Submission</h1>
                      <p>You will get an email with your confirmation</p>
-                     <RaisedButton
-                        label="Form"
-                        primary={true}
-                        style={styles.button}
-                        onClick={this.Form}
-                        />
+                     
                 </React.Fragment>
             </MuiThemeProvider>
         );

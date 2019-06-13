@@ -10,7 +10,10 @@ class Form extends React.Component{
         username: '',
         email: '',
         password: '',
+        errorMessage: null
     }
+
+   
 
     change = e => {
         this.setState({
@@ -19,7 +22,8 @@ class Form extends React.Component{
     }
 
     onSubmit = event => {
-        event.preventDefault();
+        this.props.history.push('/Success')
+        
 
         const endpoint = 'https://best-friend-reminders.herokuapp.com/register';
 
