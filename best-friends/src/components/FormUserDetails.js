@@ -8,8 +8,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 export class FormUserDetails extends Component {
 
     continue = e => {
+        this.props.history.push('/FormPersonalDetails')
         e.preventDefault();
-        this.props.nextStep();
+        
     }
     render() {
         const { values, handleChange } = this.props;

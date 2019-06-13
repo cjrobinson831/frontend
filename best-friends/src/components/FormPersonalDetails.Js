@@ -7,13 +7,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 export class FormPersonalDetails extends Component {
     continue = e => {
+        this.props.history.push('/Form')
         e.preventDefault();
-        this.props.nextStep();
+        //this.props.nextStep();
     }
 
     back = e => {
+        this.props.history.push('/FormUserDetails')
         e.preventDefault();
-        this.props.prevStep();
+        
     }
 
     onChange = e => {
@@ -27,8 +29,8 @@ export class FormPersonalDetails extends Component {
                 <React.Fragment>
                      <AppBar title="Registration" />
                      <TextField
-                        hintText="Enter Your Occupation"
-                        floatingLabelText="Occupation"
+                        hintText="Name "
+                        floatingLabelText="Name"
                         onChange={this.handleChange}
                         dafaultValue={values}
                         />

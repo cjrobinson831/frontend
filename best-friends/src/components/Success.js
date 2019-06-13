@@ -9,7 +9,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 export class Success extends Component {
     continue = e => {
         e.preventDefault();
-        //PROCESS FORM SEND BACK END API//
         this.props.nextStep();
     }
 
@@ -18,7 +17,7 @@ export class Success extends Component {
         this.props.prevStep();
     }
 
-    Form = e => {
+    form = e => {
         e.preventDefault();
         this.props.form();
     }

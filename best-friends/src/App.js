@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import { withRouter } from 'react-router-dom';
 import { UserForm } from './components/UserForm';
+import { Route, NavLink} from 'react-router-dom';
+import Form from './components/Form';
+import FormPersonalDetails from './components/FormPersonalDetails';
+import FormUserDetails from './components/FormUserDetails';
+import Success from './components/Success';
+import axios from 'axios';
+import {BrowserRouter as Router, Switch} from 'react-router-dom';
 
 
 class App extends Component {
@@ -9,14 +15,18 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: [],
-      isLoaded: false,
+      betterFriends: [],
+      newUser: {
+      firstName: "",
+      lastName: "",
+      }
     }
   }
 
 componentDidMount(){
-  fetch('https://best-friend-reminders.herokuapp.com/')
-    .then(res => res.json())
+  axios 
+  .get('https://best-friend-reminders.herokuapp.com/')
+    .then(res => this.setState({betterFriends: res.data}))
     .then(json => {
       this.setState({
         isLoaded:true,
@@ -25,22 +35,50 @@ componentDidMount(){
     });
 }
 
-  render(){
+render() {
+  return (
+    <Router>
+    <div className="App">
+      <nav>
 
-    const { isLoaded, item } = this.state;
-    if(!isLoaded){
-      return<div>Loading...</div>;
-    }
-    else{
+        <Route
+        exact
+        path="/FormPersonalDetails"
+        render={props => (
+          <FormPersonalDetails
+            {...props} 
+           betterFriends={this.state.betterFriends}
+          />
+        )}
+      />
+      
+      <Route
+        exact
+        path="/FormUserDetails"
+        render={props => (
+          <FormUserDetails
+            {...props} 
+          />
+        )}
+      />
 
-    return (
-      <div className="App">
-        <UserForm />
+<Route
+        exact
+        path="/Form"
+        render={props => (
+          <Form
+            {...props} 
+          />
+        )}
+      />
+        
+      </nav>
       </div>
-    );
-  }
+      </Router>
+     
+  );
 }
 }
 
-export default withRouter(App);
+export default App;
 

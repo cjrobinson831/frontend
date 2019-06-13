@@ -55,24 +55,3 @@ class App extends Component {
     })
   }
 
-
-  //render(){
-
-   // const { isLoaded, items } = this.state;
-
-   // if(!isLoaded) {
-   //   return <div>Loading...</div>
-   // }
-
-   // else{
-     
-  //return (
-    //<div className="App">
-      //<UserForm />
-      //<Form />
-   // </div>
-//  );
-//}
-//}
-//}
-//export default withRouter(App);

@@ -18,10 +18,10 @@ class Form extends React.Component{
     })
     }
 
-    onSubmit = () => {
+    onSubmit = event => {
         event.preventDefault();
 
-        const endpoint = 'https://best-friend-reminders.herokuapp.com/';
+        const endpoint = 'https://best-friend-reminders.herokuapp.com/register';
 
         axios
             .post(endpoint, this.state)
